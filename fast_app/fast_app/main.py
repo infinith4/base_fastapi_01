@@ -1,11 +1,23 @@
 from fastapi import FastAPI
 from typing import Union
-
+import requests
+#import pprint
+from utils.config import Config
 app = FastAPI()
+
+config = Config("config.yml").content
+
+access_token = config["NFT_STORAGE_API"]["API_KEY"]
+headers = {'Authorization': f'Bearer {access_token}'}
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    baseurl = "https://api.nft.storage"
+    res = requests.get(url=f"{baseurl}/", headers=headers)
+    #pprint(res)
+    print(res.content)
+
+    return {"msg": "Hello World"}
 
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: str = None):
