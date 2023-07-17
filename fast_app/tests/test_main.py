@@ -17,6 +17,7 @@
 #     assert response.status_code == 200
 #     assert response.json() == {"msg": "Hello World"}
 
+## https://fastapi.tiangolo.com/ja/tutorial/testing/
 from fastapi.testclient import TestClient
 
 from fast_app.main import app
@@ -29,7 +30,7 @@ def test_read_main():
     assert response.status_code == 200
     assert response.json() == {"msg": "Hello World"}
 
-def test_read_item():
+def test_read_items():
     response = client.get("/items/1?q=test")
     assert response.status_code == 200
     assert response.json() == {
